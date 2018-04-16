@@ -50,7 +50,7 @@ export default class RichTextToolbar extends Component {
     };
   }
 
-  componentDidReceiveProps(newProps) {
+  componentWillReceiveProps(newProps) {
     const actions = newProps.actions ? newProps.actions : defaultActions;
     this.setState({
       actions,
@@ -59,7 +59,7 @@ export default class RichTextToolbar extends Component {
   }
 
   getRows(actions, selectedItems) {
-    return actions.map((action) => {return {action, selected: selectedItems.includes(action)};});
+    return actions.map((action) => {return {action, selected: selectedItems.includes(action.type)};});
   }
 
   componentDidMount() {
@@ -128,7 +128,7 @@ export default class RichTextToolbar extends Component {
       >
         <ListView
             horizontal
-            contentContainerStyle={{flexDirection: 'row'}}
+            contentContainerStyle={{flexDirection: 'row', flexGrow: 1}}
             dataSource={this.state.ds}
             renderRow= {(row) => this._renderAction(row.action, row.selected)}
         />
